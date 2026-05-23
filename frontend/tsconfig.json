@@ -19,16 +19,25 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["./components/*"],
-      "@/app/*": ["./app/*"],
-      "@/lib/*": ["./lib/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/app/*": [
+        "./app/*"
+      ],
+      "@/lib/*": [
+        "./lib/*"
+      ]
     },
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "next-env.d.ts",
