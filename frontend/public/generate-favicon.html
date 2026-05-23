@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Cleanify Favicon PNG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        h1 {
+            color: #16a34a;
+        }
+        .icon-preview {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .icon-box {
+            text-align: center;
+        }
+        canvas {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+        }
+        button {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #15803d;
+        }
+        .instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin: 20px 0;
+        }
+        .instructions h3 {
+            color: #16a34a;
+            margin-top: 0;
+        }
+        .instructions ol {
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Cleanify Favicon Generator</h1>
+    
+    <div class="instructions">
+        <h3>Instructions:</h3>
+        <ol>
+            <li>Click the "Generate All Sizes" button below</li>
+            <li>Right-click each canvas and select "Save image as..."</li>
+            <li>Save with the exact filename shown below each canvas</li>
+            <li>Place all files in the <code>/frontend/public/</code> folder</li>
+            <li>Clear browser cache and hard refresh (Ctrl+Shift+R)</li>
+        </ol>
+    </div>
+
+    <button onclick="generateAllSizes()">Generate All Sizes</button>
+
+    <div class="icon-preview" id="iconPreview"></div>
+
+    <script>
+        function drawCircularIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Draw circle
+            ctx.fillStyle = '#16a34a';
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw text "C."
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size * 0.6}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('C.', size/2, size/2 + size * 0.05);
+        }
+
+        function generateAllSizes() {
+            const sizes = [
+                { size: 16, name: 'favicon-16x16.png' },
+                { size: 32, name: 'favicon-32x32.png' },
+                { size: 180, name: 'apple-touch-icon.png' },
+                { size: 192, name: 'icon-192.png' },
+                { size: 512, name: 'icon-512.png' }
+            ];
+
+            const preview = document.getElementById('iconPreview');
+            preview.innerHTML = '';
+
+            sizes.forEach(({ size, name }) => {
+                const box = document.createElement('div');
+                box.className = 'icon-box';
+                
+                const canvas = document.createElement('canvas');
+                drawCircularIcon(canvas, size);
+                
+                const label = document.createElement('p');
+                label.innerHTML = `<strong>${size}x${size}</strong><br><code>${name}</code>`;
+                
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = 'Download';
+                downloadBtn.onclick = () => downloadCanvas(canvas, name);
+                
+                box.appendChild(canvas);
+                box.appendChild(label);
+                box.appendChild(downloadBtn);
+                preview.appendChild(box);
+            });
+        }
+
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Generate on page load
+        window.onload = generateAllSizes;
+    </script>
+</body>
+</html>

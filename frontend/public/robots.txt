@@ -1,0 +1,19 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /admin
+Disallow: /api/
+
+# Disallow store pages (if not needed for SEO)
+Disallow: /store/
+Disallow: /cart
+Disallow: /orders
+Disallow: /shop/
+Disallow: /product/
+Disallow: /create-store
+
+# Sitemap
+Sitemap: https://cleanify.store/sitemap.xml

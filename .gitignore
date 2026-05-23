@@ -1,0 +1,9 @@
+node_modules
+.next
+dist
+build
+.env
+.env.local
+.DS_Storebuild.log
+.DS_Store
+frontend/public/videos/*.mp4
