@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Cleanify Favicon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #16a34a;
+            margin-bottom: 20px;
+        }
+        canvas {
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+        }
+        button:hover {
+            background: #15803d;
+        }
+        .preview {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .preview-item {
+            text-align: center;
+        }
+        .preview-item p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .instructions {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #16a34a;
+        }
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Cleanify Favicon Generator</h1>
+        <p>Generate a clean, centered "C" favicon for your Cleanify website.</p>
+
+        <div class="preview">
+            <div class="preview-item">
+                <canvas id="favicon16" width="16" height="16"></canvas>
+                <p>16x16 (Browser Tab)</p>
+            </div>
+            <div class="preview-item">
+                <canvas id="favicon32" width="32" height="32"></canvas>
+                <p>32x32 (Bookmark)</p>
+            </div>
+            <div class="preview-item">
+                <canvas id="favicon64" width="64" height="64"></canvas>
+                <p>64x64 (Desktop)</p>
+            </div>
+            <div class="preview-item">
+                <canvas id="favicon180" width="180" height="180"></canvas>
+                <p>180x180 (Apple Touch)</p>
+            </div>
+        </div>
+
+        <button onclick="downloadFavicon(16)">Download 16x16</button>
+        <button onclick="downloadFavicon(32)">Download 32x32</button>
+        <button onclick="downloadFavicon(64)">Download 64x64</button>
+        <button onclick="downloadFavicon(180)">Download 180x180 (Apple)</button>
+        <button onclick="downloadAllAsICO()">Download favicon.ico</button>
+
+        <div class="instructions">
+            <h3>📋 Installation Instructions</h3>
+            <ol>
+                <li>Click "Download favicon.ico" button above</li>
+                <li>Save the file</li>
+                <li>Replace the file at: <code>frontend/app/favicon.ico</code></li>
+                <li>Also download "180x180 (Apple)" and save as: <code>frontend/public/apple-touch-icon.png</code></li>
+                <li>Clear your browser cache (Cmd+Shift+R on Mac, Ctrl+Shift+R on Windows)</li>
+                <li>Refresh your website - you should see the new "C" favicon!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const GREEN = '#16a34a';
+        const WHITE = '#ffffff';
+
+        function drawFavicon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Draw green circle background
+            ctx.fillStyle = GREEN;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw white "C" text - perfectly centered
+            ctx.fillStyle = WHITE;
+            ctx.font = `bold ${size * 0.72}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('C', size/2, size/2);
+        }
+
+        // Draw all sizes on page load
+        window.onload = function() {
+            drawFavicon(document.getElementById('favicon16'), 16);
+            drawFavicon(document.getElementById('favicon32'), 32);
+            drawFavicon(document.getElementById('favicon64'), 64);
+            drawFavicon(document.getElementById('favicon180'), 180);
+        };
+
+        function downloadFavicon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            drawFavicon(canvas, size);
+            
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = size === 180 ? 'apple-touch-icon.png' : `favicon-${size}x${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        function downloadAllAsICO() {
+            // For ICO, we'll download a 32x32 PNG and user can convert it
+            // or use online tool like https://convertio.co/png-ico/
+            const canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 32;
+            drawFavicon(canvas, 32);
+            
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'favicon.png';
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                alert('Downloaded favicon.png!\n\nTo convert to .ico:\n1. Go to https://convertio.co/png-ico/\n2. Upload the downloaded favicon.png\n3. Convert and download as favicon.ico\n4. Replace frontend/app/favicon.ico\n\nOr just rename favicon.png to favicon.ico - most browsers support PNG favicons!');
+            });
+        }
+    </script>
+</body>
+</html>
