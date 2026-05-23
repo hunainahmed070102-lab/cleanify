@@ -24,18 +24,13 @@ const Hero = () => {
   return (
     <section className="relative w-full overflow-hidden">
       <div className="relative min-h-screen w-full">
-        {/* Full-Screen Video Background */}
+        {/* Full-Screen Image Background */}
         <div className="absolute inset-0 h-full w-full">
-          <video
+          <img
+            src="/videos/hero.jpg"
+            alt="Professional property services background"
             className="h-full w-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/videos/hero.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          />
         </div>
 
         {/* Dark Overlay for Better Text Readability */}
@@ -65,6 +60,7 @@ const Hero = () => {
               {/* CTA Buttons */}
               <div className="mb-8 flex flex-wrap gap-4">
                 <button
+                  type="button"
                   onClick={handleBookService}
                   className="group inline-flex items-center gap-2 rounded-full bg-green-600 px-8 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-green-700 hover:shadow-xl"
                 >
@@ -76,8 +72,9 @@ const Hero = () => {
                 </button>
 
                 <button
+                  type="button"
                   onClick={handleViewServices}
-                  className="rounded-full border-2 border-white bg-white px-8 py-3 text-base font-semibold text-slate-800 shadow-lg transition-all duration-300 hover:scale-105 hover:border-green-600 hover:bg-green-50 hover:text-green-700 hover:shadow-xl"
+                  className="rounded-full border-2 border-white bg-white px-8 py-3 text-base font-semibold text-slate-800 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 >
                   View Services
                 </button>
@@ -89,9 +86,9 @@ const Hero = () => {
                   'Re-Clean Guarantee',
                   'Payment After Work',
                   'Fully Insured',
-                ].map((feature, index) => (
+                ].map((feature) => (
                   <div
-                    key={index}
+                    key={feature}
                     className="flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-4 py-2 text-sm text-white shadow-md backdrop-blur-md"
                   >
                     <CheckCircle2
