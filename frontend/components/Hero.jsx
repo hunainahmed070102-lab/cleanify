@@ -3,6 +3,7 @@
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 const Hero = () => {
   const router = useRouter()
@@ -24,12 +25,18 @@ const Hero = () => {
   return (
     <section className="relative w-full overflow-hidden">
       <div className="relative min-h-screen w-full">
-        {/* Full-Screen Image Background */}
+        {/* Optimized Full-Screen Image Background */}
         <div className="absolute inset-0 h-full w-full">
-          <img
+          <Image
             src="/videos/hero.jpg"
             alt="Professional property services background"
-            className="h-full w-full object-cover"
+            fill
+            priority
+            quality={85}
+            sizes="100vw"
+            className="object-cover"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAB//2Q=="
           />
         </div>
 

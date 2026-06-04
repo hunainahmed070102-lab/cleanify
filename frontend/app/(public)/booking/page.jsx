@@ -8,8 +8,10 @@ import { CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 
 const serviceCategories = {
     'Cleaning Services': {
-        subServices: ['Home Cleaning', 'Office Cleaning', 'Deep Cleaning', 'Carpet Cleaning', 'Window Cleaning', 'End of Tenancy Cleaning'],
-        basePrice: 99
+        subServices: ['1 Bedroom Flat', '2 Bedroom Flat', '3 Bedroom Flat', 'Deep Cleaning', 'End of Tenancy Cleaning', 'Carpet Cleaning', 'Window Cleaning', 'Office Cleaning'],
+        basePrice: 175,
+        // Fixed prices per bedroom for flat/unit
+        bedroomPrices: { 1: 175, 2: 245, 3: 345 }
     },
     'Removal Services': {
         subServices: ['Furniture Removal', 'Sofa Removal', 'Appliance Removal', 'House Moving Assistance', 'Office Relocation'],
@@ -35,7 +37,7 @@ const serviceCategories = {
 
 const emptyForm = {
     serviceCategory: '', subService: '',
-    propertyType: 'House', rooms: 1, bathrooms: 1, area: '', itemQuantity: 1, notes: '',
+    propertyType: 'Flat', rooms: 1, bathrooms: 1, area: '', itemQuantity: 1, notes: '',
     date: '', time: '',
     name: '', phone: '', email: '', address: '', postcode: '', whatsapp: '',
     couponCode: '', appliedCoupon: null
@@ -58,8 +60,19 @@ export default function BookingPage() {
     const calculatePrice = () => {
         if (!bookingData.serviceCategory) return { basePrice: 0, roomCharges: 0, subtotal: 0, discount: 0, total: 0 };
         const category = serviceCategories[bookingData.serviceCategory];
-        const basePrice = category?.basePrice || 99;
-        const roomCharges = bookingData.rooms > 1 ? (bookingData.rooms - 1) * 40 : 0;
+        
+        let basePrice;
+        let roomCharges = 0;
+
+        // Cleaning Services: fixed prices per bedroom (1 bed=£175, 2 bed=£245, 3 bed=£345)
+        if (bookingData.serviceCategory === 'Cleaning Services' && category.bedroomPrices) {
+            const rooms = Math.min(bookingData.rooms, 3); // cap at 3 for fixed pricing
+            basePrice = category.bedroomPrices[rooms] || category.bedroomPrices[3];
+        } else {
+            basePrice = category?.basePrice || 99;
+            roomCharges = bookingData.rooms > 1 ? (bookingData.rooms - 1) * 40 : 0;
+        }
+
         const subtotal = basePrice + roomCharges;
         
         let discount = 0;

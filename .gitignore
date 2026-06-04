@@ -7,3 +7,4 @@ build
 .DS_Storebuild.log
 .DS_Store
 frontend/public/videos/*.mp4
+.vscode/

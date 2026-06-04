@@ -6,16 +6,16 @@ export const defaultPricingData = [
   {
     id: 'cleaning-services',
     name: 'Cleaning Services',
-    basePrice: 45,
+    basePrice: 175,
     subServices: [
-      { name: 'Home Cleaning', price: 45, isActive: true },
-      { name: 'Office Cleaning', price: 55, isActive: true },
-      { name: 'Deep Cleaning', price: 85, isActive: true },
-      { name: 'Carpet Cleaning', price: 40, isActive: true },
-      { name: 'Window Cleaning', price: 35, isActive: true },
-      { name: 'End of Tenancy Cleaning', price: 120, isActive: true },
-      { name: 'Bathroom Cleaning', price: 30, isActive: true },
-      { name: 'Kitchen Cleaning', price: 35, isActive: true },
+      { name: '1 Bedroom Flat', price: 175, isActive: true },
+      { name: '2 Bedroom Flat', price: 245, isActive: true },
+      { name: '3 Bedroom Flat', price: 345, isActive: true },
+      { name: 'Deep Cleaning', price: 245, isActive: true },
+      { name: 'Carpet Cleaning', price: 175, isActive: true },
+      { name: 'Window Cleaning', price: 175, isActive: true },
+      { name: 'End of Tenancy Cleaning', price: 245, isActive: true },
+      { name: 'Office Cleaning', price: 175, isActive: true },
     ]
   },
   {

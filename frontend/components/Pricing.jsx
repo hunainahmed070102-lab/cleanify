@@ -172,6 +172,7 @@ export default function Pricing() {
                         {pricingPlans.map((plan, index) => {
                             const IconComponent = plan.icon;
                             const price = getPrice(plan.categoryId);
+                            const isCleaningPlan = plan.categoryId === 'cleaning-services';
                             
                             return (
                                 <div
@@ -190,11 +191,13 @@ export default function Pricing() {
                                     <div className="mb-8 pb-6 border-b border-slate-100">
                                         <div className="flex items-baseline gap-2">
                                             <span className="text-5xl font-bold text-slate-800 group-hover:text-green-600 transition-colors">
-                                                £{price}
+                                                £{isCleaningPlan ? 175 : price}
                                             </span>
                                             <span className="text-slate-500 text-lg font-medium">starting</span>
                                         </div>
-                                        <p className="text-xs text-slate-500 mt-2">Final price based on requirements</p>
+                                        <p className="text-xs text-slate-500 mt-2">
+                                            {isCleaningPlan ? 'Per unit / flat. Price based on bedrooms' : 'Final price based on requirements'}
+                                        </p>
                                     </div>
 
                                     {/* Features */}
