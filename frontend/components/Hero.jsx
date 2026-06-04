@@ -38,8 +38,8 @@ const Hero = () => {
           />
         </div>
 
-        {/* Overlay - green tint while image loads, then dark */}
-        <div className="absolute inset-0 bg-green-900/60" />
+        {/* Overlay - subtle dark for text readability */}
+        <div className="absolute inset-0 bg-black/40" />
 
         {/* Content */}
         <div className="relative z-10 px-4 pt-24 sm:px-6 md:pt-28 lg:px-8">
