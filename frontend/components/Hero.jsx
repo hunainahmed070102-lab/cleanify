@@ -24,7 +24,7 @@ const Hero = () => {
 
   return (
     <section className="relative w-full overflow-hidden">
-      <div className="relative min-h-screen w-full">
+      <div className="relative min-h-screen w-full bg-green-800">
         {/* Optimized Full-Screen Image Background */}
         <div className="absolute inset-0 h-full w-full">
           <Image
@@ -38,8 +38,8 @@ const Hero = () => {
           />
         </div>
 
-        {/* Dark Overlay for Better Text Readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Overlay - green tint while image loads, then dark */}
+        <div className="absolute inset-0 bg-green-900/60" />
 
         {/* Content */}
         <div className="relative z-10 px-4 pt-24 sm:px-6 md:pt-28 lg:px-8">
