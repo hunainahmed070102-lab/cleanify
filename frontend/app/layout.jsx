@@ -84,6 +84,13 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
+                {/* Preload hero image for instant loading */}
+                <link
+                    rel="preload"
+                    href="/videos/hero.jpg"
+                    as="image"
+                    type="image/jpeg"
+                />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{

@@ -64,10 +64,13 @@ export default function BookingPage() {
         let basePrice;
         let roomCharges = 0;
 
-        // Cleaning Services: fixed prices per bedroom (1 bed=£175, 2 bed=£245, 3 bed=£345)
+        // Cleaning Services: detect bedroom count from sub-service name
         if (bookingData.serviceCategory === 'Cleaning Services' && category.bedroomPrices) {
-            const rooms = Math.min(bookingData.rooms, 3); // cap at 3 for fixed pricing
-            basePrice = category.bedroomPrices[rooms] || category.bedroomPrices[3];
+            const sub = bookingData.subService || '';
+            let bedrooms = 1;
+            if (sub.startsWith('2')) bedrooms = 2;
+            else if (sub.startsWith('3')) bedrooms = 3;
+            basePrice = category.bedroomPrices[bedrooms];
         } else {
             basePrice = category?.basePrice || 99;
             roomCharges = bookingData.rooms > 1 ? (bookingData.rooms - 1) * 40 : 0;
